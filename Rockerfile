@@ -1,0 +1,31 @@
+FROM ocaml/opam:alpine-3.3_ocaml-4.02.3
+
+RUN sudo apk add --no-cache m4 perl openssl-dev
+
+RUN opam pin add -y async_http https://github.com/prepor/async-http.git
+RUN opam pin add -y cancellable https://github.com/prepor/async-cancellable.git
+
+COPY opam /src/opam
+RUN sudo chown -R opam /src
+WORKDIR /src
+
+RUN opam pin add -ny mutli-consul-template .
+RUN opam install -y --deps-only mutli-consul-template
+RUN opam install -y topkg-care
+
+COPY . /src
+RUN sudo chown -R opam /src
+
+RUN eval `opam config env` && topkg build
+
+USER root
+
+EXPORT ./_build/src/mutli-consul-template.native mutli-consul-template.native
+
+FROM gliderlabs/alpine:3.4
+
+IMPORT mutli-consul-template.native /usr/bin/mutli-consul-template
+
+CMD exec mutli-consul-template -c /etc/consul-template.conf $MULTI_CT_ARGS
+
+PUSH prepor/multi-consul-template:{{ .Version }}
