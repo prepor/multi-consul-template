@@ -17,6 +17,7 @@ depends: [
   "async_http"
   "cancellable"
   "base64"
+  "yojson"
   "ocamlfind" {build}
   "ocamlbuild" {build}
   "topkg" {build} ]
