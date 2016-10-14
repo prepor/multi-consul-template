@@ -1,0 +1,7 @@
+description = "Sync templates with consul"
+version = "%%VERSION_NUM%%"
+requires = ""
+archive(byte) = "multi-consul-template.cma"
+archive(native) = "multi-consul-template.cmxa"
+plugin(byte) = "multi-consul-template.cma"
+plugin(native) = "multi-consul-template.cmxs"
