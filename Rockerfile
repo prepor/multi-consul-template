@@ -26,6 +26,6 @@ FROM gliderlabs/alpine:3.4
 
 IMPORT mutli-consul-template.native /usr/bin/mutli-consul-template
 
-CMD exec mutli-consul-template -c /etc/consul-template.conf $MULTI_CT_ARGS
+CMD exec mutli-consul-template $MULTI_CT_ARGS
 
 PUSH prepor/multi-consul-template:{{ .Version }}

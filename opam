@@ -16,6 +16,7 @@ depends: [
   "cmdliner"
   "async_http"
   "cancellable"
+  "base64"
   "ocamlfind" {build}
   "ocamlbuild" {build}
   "topkg" {build} ]
